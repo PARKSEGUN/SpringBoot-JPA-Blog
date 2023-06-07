@@ -1,9 +1,20 @@
 # 서버 포트 설정
 server:
-  port: 8080
+  port: 8000
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 
 # database 연동 설정
 spring:
+  mvc:
+    view:
+      prefix: WEB-INF/views/
+      suffix: .html
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
@@ -14,8 +25,17 @@ spring:
 
   # spring data jpa 설정
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    open-in-view: false
-    show-sql: true
+    open-in-view: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+         #DB컬럼에 저장될 이름의 전략을 설정(<- 이것은 java로 씌여져있는그대로 설정)
+      use-new-id-generator-mappings: false  #JPA에서 기본적으로 제공하는 전략을 따라가지 않겠다
+    show-sql: true  #테이블이 만들어지는 sql이 보여진다
+    properties:
+      hibernate.format_sql: true  #sql이 깔끔하게 보여진다
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false

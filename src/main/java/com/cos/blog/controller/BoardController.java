@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,8 +32,9 @@ public class BoardController {
     }
 
     @GetMapping("/board/{id}")
-    public String findById(@PathVariable int id,Model model) {
+    public String findById(@PathVariable int id, Model model , @AuthenticationPrincipal PrincipalDetail principalDetail) {
         model.addAttribute("board", boardService.글상세보기(id));
+        model.addAttribute("loginId", principalDetail.getUser().getId());
         return "board/detail";
     }
 

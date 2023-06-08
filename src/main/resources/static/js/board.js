@@ -31,11 +31,11 @@ let index={
        });  //ajax 통신을 이용해서 3개의 데이터를 json으로 변경해서 insert 요청!!!
     },
     deleteById:function(){
-            var
+            var id=$("#id").text();
            $.ajax({
             //회원 가입 수행 요청
             type:"DELETE",
-            url: "/api/board",
+            url: "/api/board/"+id,
             dataType: "json"    //요청을 서버로해서 응답이 왔을 때 기본적으로 모든 것이 문자열 (생긴게 json 이라면) -> javscript로 변경해준다
 
            }).done(function(resp){  //성공

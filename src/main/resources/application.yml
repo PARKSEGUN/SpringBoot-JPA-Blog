@@ -32,7 +32,7 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
          #DB컬럼에 저장될 이름의 전략을 설정(<- 이것은 java로 씌여져있는그대로 설정)
       use-new-id-generator-mappings: false  #JPA에서 기본적으로 제공하는 전략을 따라가지 않겠다
-    show-sql: true  #테이블이 만들어지는 sql이 보여진다
+    #show-sql: true  #테이블이 만들어지는 sql이 보여진다
     properties:
       hibernate.format_sql: true  #sql이 깔끔하게 보여진다
 

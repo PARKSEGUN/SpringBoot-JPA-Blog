@@ -24,8 +24,16 @@ public class BoardApiController {
     }
 
     @DeleteMapping("/api/board/{id}")
-    public ResponseDto<Integer> save(@PathVariable int id) {
+    public ResponseDto<Integer> delete(@PathVariable int id) {
         boardService.삭제하기(id);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+    }
+
+    @PutMapping("/api/board/{id}")
+    public ResponseDto<Integer> update(@PathVariable int id,@RequestBody Board board) {
+        System.out.println(board);
+
+        boardService.수정하기(id,board);
         return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
     }
 }

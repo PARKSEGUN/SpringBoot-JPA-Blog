@@ -30,8 +30,13 @@ let index={
         dataType: "json"    //요청을 서버로해서 응답이 왔을 때 기본적으로 모든 것이 문자열 (생긴게 json 이라면) -> javscript로 변경해준다
 
        }).done(function(resp){  //성공
+        if(resp.status===500){
+            alert("중복된 아이디 입니다");
+        }else{
             alert("회원가입이 완료되었습니다.");
             location.href="/";
+        }
+
        }).fail(function(error){  //실패
             alert("중복된 아이디 입니다");
             location.href("/joinForm");

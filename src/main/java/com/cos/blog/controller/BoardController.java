@@ -1,6 +1,7 @@
 package com.cos.blog.controller;
 
 import com.cos.blog.config.auth.PrincipalDetail;
+import com.cos.blog.model.Board;
 import com.cos.blog.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +35,8 @@ public class BoardController {
 
     @GetMapping("/board/{id}")
     public String findById(@PathVariable int id, Model model, @AuthenticationPrincipal PrincipalDetail principalDetail) {
-        model.addAttribute("board", boardService.글상세보기(id));
+        Board board = boardService.글상세보기(id);
+        model.addAttribute("board", board);
         model.addAttribute("loginId", principalDetail.getUser().getId());
         return "board/detail";
     }

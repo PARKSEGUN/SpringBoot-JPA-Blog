@@ -39,9 +39,15 @@ public class UserService {
         User persistanceUser = userRepository.findById(user.getId()).orElseThrow(() -> {
             return new IllegalArgumentException("회원 찾기 실패");
         });
-        String encodePassword = encoder.encode(user.getPassword());
-        persistanceUser.setEmail(user.getEmail());
-        persistanceUser.setPassword(encodePassword);
+        if (persistanceUser.getOauth() == null || persistanceUser.getOauth() == "") {
+            String encodePassword = encoder.encode(user.getPassword());
+            persistanceUser.setPassword(encodePassword);
+            persistanceUser.setEmail(user.getEmail());
+        }
+
+
+
+
         //영속화된 persistance 객체의 변화가 감지되면 더티체킹돼서 자동으로 update 문을 날려준다
         //따로 save함수를 사용하지 않아도된다 @Transactional 사용
 
@@ -50,5 +56,13 @@ public class UserService {
 
 
 
+    }
+
+    @Transactional(readOnly = true)
+    public User 회원찾기(String username) {
+        User user = userRepository.findByUsername(username).orElseGet(()->{
+            return new User();
+        });
+        return user;
     }
 }

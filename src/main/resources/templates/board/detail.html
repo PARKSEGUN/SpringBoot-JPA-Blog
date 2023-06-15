@@ -4,96 +4,129 @@
 
 
 <head>
-  <title>Home</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
 
 
-
-
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
 
 </head>
 <body>
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <a class="navbar-brand" href="/">HOME</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul sec:authorize="!isAuthenticated()" class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/auth/loginForm">로그인</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/auth/joinForm">회원가입</a>
-      </li>
-    </ul>
-    <ul sec:authorize="isAuthenticated()" class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/board/saveForm">글쓰기</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/user/updateForm">회원정보</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/logout">로그아웃</a>
-      </li>
-    </ul>
-    </c:otherwise>
-    </th:choose>
-  </div>
+    <a class="navbar-brand" href="/">HOME</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul sec:authorize="!isAuthenticated()" class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/auth/loginForm">로그인</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/auth/joinForm">회원가입</a>
+            </li>
+        </ul>
+        <ul sec:authorize="isAuthenticated()" class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/board/saveForm">글쓰기</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/updateForm">회원정보</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">로그아웃</a>
+            </li>
+        </ul>
+        </c:otherwise>
+        </th:choose>
+    </div>
 </nav>
 <br>
 
 
 <div class="container">
-  <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
-  <a th:if="${loginId==board.user.id}" th:href="@{/board/{board.id}/updateForm(board.id=${board.id})}" class="btn btn-warning">수정</a>
-  <button th:if="${loginId==board.user.id}" id="btn-delete" class="btn btn-danger">삭제</button>
-  <br><br>
-<div>
-  글 번호 : <span id="id"><i th:text="${board.id}"> </i></span>
-  작성자 : <span><i th:text="${board.user.username}"> </i></span>
-</div>
-  <br>
+    <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+    <a th:if="${loginId==board.user.id}" th:href="@{/board/{board.id}/updateForm(board.id=${board.id})}"
+       class="btn btn-warning">수정</a>
+    <button th:if="${loginId==board.user.id}" id="btn-delete" class="btn btn-danger">삭제</button>
+    <br><br>
+    <div>
+        글 번호 : <span id="id"><i th:text="${board.id}"> </i></span>
+        작성자 : <span><i th:text="${board.user.username}"> </i></span>
+    </div>
+    <br>
 
     <div>
-      <h3 th:text="${board.title}" id="title"></h3>
+        <h3 th:text="${board.title}" id="title"></h3>
     </div>
-  <hr />
+    <hr/>
     <div>
-      <div th:utext="${board.content}" id="content"></div>
+        <div th:utext="${board.content}" id="content"></div>
     </div>
-    <hr />
+    <hr/>
+
+    <div class="card">
+        <form>
+            <input type="hidden" id="userId" th:value="${board.user.id}">
+            <input type="hidden" id="boardId" th:value="${board.id}">
+            <div class="card-body"><textarea id="reply-content" class="form-control" rows="1"></textarea></div>
+            <div class="card-footer">
+                <button type="button" id="btn-reply-save" class="btn btn-primary">등록</button>
+            </div>
+        </form>
+
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-header">댓글 리스트</div>
+        <ul id="reply-box" class="list-group">
+            <tr th:each="reply : ${board.replyList}">
+                <li th:id="'reply-'+${reply.id}" class="list-group-item d-flex justify-content-between">
+                    <div th:text="${reply.content}">댓글 내용입니다!</div>
+                    <div class="d-flex ">
+                        <div th:text="|작성자 : ${reply.user.username}|" class="font-italic">작성자 &nbsp;</div>
+                        <button th:if="${loginId==reply.user.id}" th:onclick="|index.replyDelete(${board.id},${reply.id})|" class="badge">삭제</button>
+                    </div>
+                </li>
+
+            </tr>
+
+        </ul>
+    </div>
+
 </div>
-
-
-
 
 
 
 <div class="jumbotron text-center" style="margin-bottom:0">
-  <p>Created by qkrtprjs</p>
-  <p>📞010-2542-0330</p>
-  <p>🏛군산대학교</p>
+    <p>Created by qkrtprjs</p>
+    <p>📞010-2542-0330</p>
+    <p>🏛군산대학교</p>
 </div>
 
 
 <script src="/js/board.js"></script>
-
 
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>

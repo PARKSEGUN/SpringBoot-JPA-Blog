@@ -35,7 +35,8 @@ spring:
     #show-sql: true  #테이블이 만들어지는 sql이 보여진다
     properties:
       hibernate.format_sql: true  #sql이 깔끔하게 보여진다
-
+cos:
+  key: cos1234
   jackson:
     serialization:
       fail-on-empty-beans: false

@@ -12,14 +12,9 @@ import java.sql.SQLIntegrityConstraintViolationException;
 @RestController
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = IllegalArgumentException.class)
-    public ResponseDto<String> handleArgumentException(IllegalArgumentException e) {
-        return new ResponseDto<String>(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+    @ExceptionHandler(value = Exception.class)
+    public ResponseDto<String> handleArgumentException(Exception e) {
+        return new ResponseDto<String>(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());//500에러
     }
 
-    @ExceptionHandler(value = SQLIntegrityConstraintViolationException.class)
-    public ResponseDto<String> handleArgumentException(SQLIntegrityConstraintViolationException e) {
-        //System.out.println(HttpStatus.INTERNAL_SERVER_ERROR.value()+" | "+e.getMessage());
-        return new ResponseDto<String>(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
-    }
 }

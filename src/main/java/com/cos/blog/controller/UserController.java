@@ -3,13 +3,21 @@ package com.cos.blog.controller;
 import com.cos.blog.config.auth.PrincipalDetail;
 import com.cos.blog.model.KakaoProfile;
 import com.cos.blog.model.OAuthToken;
+import com.cos.blog.model.User;
+import com.cos.blog.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -27,6 +35,16 @@ import java.util.UUID;
 @Controller
 public class UserController {
 
+
+    @Value("${cos.key}")
+    private String cosKey;
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+
     @GetMapping("/auth/joinForm")
     public String joinForm() {
         return "joinForm";
@@ -43,7 +61,7 @@ public class UserController {
 
     //@ResponseBody를 쓰면 Data를 리턴해주는 컨트롤러 함수가된다
     @GetMapping("/auth/kakao/callback")
-    public @ResponseBody String kakaoCallback(String code) {
+    public String kakaoCallback(String code) {
         //POST방식으로 KEY-VALUE 데이터를 요청 (카카오쪽으로)
         //여러가지 라이브러리가 있지만 RestTemplate를 사용
         RestTemplate restTemplate = new RestTemplate();
@@ -102,12 +120,28 @@ public class UserController {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        //우리가 필요한것 username, password, email
-        System.out.println("블로그 서버 유저네임 : " + kakaoProfile.getKakaoAccount().getEmail() + "_" + kakaoProfile.getId());
-        System.out.println("블로그 서버 이메일 : " + kakaoProfile.getKakaoAccount().getEmail());
-        UUID garbagePassword = UUID.randomUUID();
-        System.out.println("블로그 서버 비밀번호 : " + garbagePassword);
+        User kakaoUser = User.builder()
+                .username(kakaoProfile.getKakaoAccount().getEmail() + "_" + kakaoProfile.getId())
+                .password(cosKey)
+                .email(kakaoProfile.getKakaoAccount().getEmail())
+                .oauth("kakao")
+                .build();
 
-        return response2.getBody();
+        //무조건 회원가입이 아닌 가입자인지 비가입자인지 확인
+        User originuser = userService.회원찾기(kakaoUser.getUsername());
+
+        if(originuser.getUsername()==null){
+            userService.회원가입(kakaoUser);
+        }
+        else{
+            //spring security를 이용해서 로그인을하면 자동으로 세션이 등록되지만 지금은 카카오 로그인으로 로그인했기때문에 이전에
+            //회원정보를 변경했을때에 세션을 변경해주는 방법을 사용해서 세션을 등록해준다
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(kakaoUser.getUsername(), kakaoUser.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+
+
+        return "redirect:/";
     }
 }
